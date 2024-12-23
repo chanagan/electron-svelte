@@ -1,0 +1,95 @@
+<script>
+	import PgTop from './components/PgTop.svelte';
+
+	export let name;
+	let version;
+	let dashboard
+	let arrivals, departures;
+	let gstsInHouse, pctOccupied, asOfDate;
+	let ihLogo = 'images/ih-logo.png';
+
+	const get_dashboard = async () => {
+		api.send('get/dashboard');
+		// dashboard = await api.getDashboard();
+	}
+
+	const get_version = async () => {
+		version = await api.getVersion();
+	}
+
+	window.addEventListener('message', (event) => {
+		console.log('rend: event: ', event);
+		dashboard = event.data.dashboard;
+		console.log('rend: dashboard: ', dashboard);
+
+		arrivals = dashboard.arrivals;
+		departures = dashboard.departures;
+		gstsInHouse = dashboard.guestsInHouse;
+		pctOccupied = dashboard.percentageOccupied;
+		asOfDate = dashboard.property_now;
+	})
+</script>
+
+<main>
+	<!-- <img src={ihLogo} alt="IH Logo" width="100" height="100"> -->
+
+	<PgTop ihLogo={ihLogo} />
+
+	<!-- <h1>Hello {name}! you stud</h1> -->
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+
+	<button on:click={get_dashboard}>Dashboard: {dashboard || 'Get Dashboard'}</button>	
+	<button on:click|once={get_version}>Version: {version || 'Get Version'}</button>
+
+	{#if dashboard}
+	<table>
+		<tr>
+			<th>Arrivals</th>
+			<td>{arrivals}</td>
+		</tr>
+		<tr>
+			<th>Departures</th>
+			<td>{departures}</td>
+		</tr>
+		<tr>
+			<th>Guests In House</th>
+			<td>{gstsInHouse}</td>
+		</tr>
+		<tr>
+			<th>Occupancy</th>
+			<td>{pctOccupied}%</td>
+		</tr>
+		<tr>
+			<th>As of</th>
+			<td>{asOfDate}</td>
+		</tr>
+	</table>
+	{/if}
+
+</main>
+
+<style>
+	main {
+		text-align: center;
+		padding: 1em;
+		max-width: 240px;
+		margin: 0 auto;
+	}
+
+	th {
+		text-align: left;
+	}
+
+	h1 {
+		color: #ff3e00;
+		text-transform: uppercase;
+		font-size: 4em;
+		font-weight: 100;
+	}
+
+	@media (min-width: 640px) {
+		main {
+			max-width: none;
+		}
+	}
+</style>
