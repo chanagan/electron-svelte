@@ -1,5 +1,4 @@
 <script>
-    import { Styles } from "svetestrap";
 
     let ihLogo = "images/ih-logo.png";
     let cbLogo = "images/cb-logo.png";

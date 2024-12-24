@@ -56,13 +56,13 @@ ipcMain.on('get/dashboard', async (event) => {
     let dashboard;
     let params = new URLSearchParams({
         propertyID: cbPropertyID,
-        date: '2024-12-31',
+        date: '2024-12-25',
     });
 
     fetch(cbServer + cbApiGetDashboard + params, cbOptions)
         .then(res => res.json())
         .then((data) => {
-            console.log('then Success:', data.data);
+            // console.log('then Success:', data.data);
             dashboard = data.data;
             win.webContents.send('dashboard', dashboard);   
             // return dashboard;    

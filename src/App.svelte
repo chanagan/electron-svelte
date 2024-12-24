@@ -1,7 +1,7 @@
 <script>
 	import PgTop from './components/PgTop.svelte';
 
-	export let name;
+	// export let name;
 	let version;
 	let dashboard
 	let arrivals, departures;
@@ -43,6 +43,7 @@
 
 	{#if dashboard}
 	<table>
+		<tbody>
 		<tr>
 			<th>Arrivals</th>
 			<td>{arrivals}</td>
@@ -63,6 +64,7 @@
 			<th>As of</th>
 			<td>{asOfDate}</td>
 		</tr>
+		</tbody>
 	</table>
 	{/if}
 
@@ -78,13 +80,6 @@
 
 	th {
 		text-align: left;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
 	}
 
 	@media (min-width: 640px) {
