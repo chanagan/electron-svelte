@@ -1,11 +1,13 @@
 <script>
+	import { once } from 'svelte/legacy';
+
 	import PgTop from './components/PgTop.svelte';
 
 	// export let name;
-	let version;
-	let dashboard
-	let arrivals, departures;
-	let gstsInHouse, pctOccupied, asOfDate;
+	let version = $state();
+	let dashboard = $state()
+	let arrivals = $state(), departures = $state();
+	let gstsInHouse = $state(), pctOccupied = $state(), asOfDate = $state();
 	let ihLogo = 'images/ih-logo.png';
 
 	const get_dashboard = async () => {
@@ -38,8 +40,8 @@
 	<!-- <h1>Hello {name}! you stud</h1> -->
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
-	<button on:click={get_dashboard}>Dashboard: {dashboard || 'Get Dashboard'}</button>	
-	<button on:click|once={get_version}>Version: {version || 'Get Version'}</button>
+	<button onclick={get_dashboard}>Dashboard: {dashboard || 'Get Dashboard'}</button>	
+	<button onclick={once(get_version)}>Version: {version || 'Get Version'}</button>
 
 	{#if dashboard}
 	<table>
