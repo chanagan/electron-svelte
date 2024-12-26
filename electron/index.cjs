@@ -53,6 +53,7 @@ const cbOptions = cbConfig.cbOptions;
 const cbApiGetDashboard = "getDashboard?";
 
 ipcMain.on('get/dashboard', async (event) => {
+    console.log('get/dashboard');
     let dashboard;
     let params = new URLSearchParams({
         propertyID: cbPropertyID,
@@ -62,7 +63,7 @@ ipcMain.on('get/dashboard', async (event) => {
     fetch(cbServer + cbApiGetDashboard + params, cbOptions)
         .then(res => res.json())
         .then((data) => {
-            // console.log('then Success:', data.data);
+            console.log('then Success:');
             dashboard = data.data;
             win.webContents.send('dashboard', dashboard);   
             // return dashboard;    

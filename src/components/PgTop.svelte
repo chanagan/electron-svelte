@@ -1,7 +1,8 @@
 <script>
+    import { Button, Col, Row } from "@sveltestrap/sveltestrap";
 
-    let ihLogo = "images/ih-logo.png";
-    let cbLogo = "images/cb-logo.png";
+    let ihLogo = "./images/ih-logo.png";
+    let cbLogo = "./images/cb-logo.png";
 
 </script>
 
@@ -16,6 +17,12 @@
             </div>
         </div>
     <!-- </div> -->
+    
+    <!-- <Row>
+        <Col>
+        <Button color="primary">Primary</Button>
+        </Col>
+    </Row> -->
 </main>
 
 <style>

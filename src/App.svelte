@@ -1,92 +1,149 @@
 <script>
-	import { once } from 'svelte/legacy';
+    import { Router, Route, Link } from "svelte-routing";
+    import Home from "./routes/Dashboard.svelte";
+    import About from "./routes/About.svelte";
+    import Blog from "./routes/Blog.svelte";
 
-	import PgTop from './components/PgTop.svelte';
+    import { Container, Row, Col } from "@sveltestrap/sveltestrap";
+    import { Button, Styles } from "@sveltestrap/sveltestrap";
+    import {
+        Collapse,
+        Nav,
+        NavItem,
+        NavLink,
+        Navbar,
+        NavbarBrand,
+        NavbarToggler,
+    } from "@sveltestrap/sveltestrap";
 
-	// export let name;
-	let version = $state();
-	let dashboard = $state()
-	let arrivals = $state(), departures = $state();
-	let gstsInHouse = $state(), pctOccupied = $state(), asOfDate = $state();
-	let ihLogo = 'images/ih-logo.png';
+    import PgTop from "./components/PgTop.svelte";
+    import Dashboard from "./routes/Dashboard.svelte";
 
-	const get_dashboard = async () => {
-		api.send('get/dashboard');
-		// dashboard = await api.getDashboard();
-	}
+    // export let name;
+    let version = "";
+    let dashboard = "";
+    let arrivals = "",
+        departures = "";
+    let gstsInHouse = "",
+        pctOccupied = "",
+        asOfDate = "";
 
-	const get_version = async () => {
-		version = await api.getVersion();
-	}
+    const get_dashboard = async () => {
+        api.send("get/dashboard");
+        // dashboard = await api.getDashboard();
+    };
 
-	window.addEventListener('message', (event) => {
-		console.log('rend: event: ', event);
-		dashboard = event.data.dashboard;
-		console.log('rend: dashboard: ', dashboard);
+    const get_version = async () => {
+        version = await api.getVersion();
+    };
 
-		arrivals = dashboard.arrivals;
-		departures = dashboard.departures;
-		gstsInHouse = dashboard.guestsInHouse;
-		pctOccupied = dashboard.percentageOccupied;
-		asOfDate = dashboard.property_now;
-	})
+    window.addEventListener("message", (event) => {
+        console.log("rend: event: ", event);
+        dashboard = event.data.dashboard;
+
+        console.log("rend: dashboard: ", dashboard);
+
+        arrivals = dashboard.arrivals;
+        departures = dashboard.departures;
+        gstsInHouse = dashboard.guestsInHouse;
+        pctOccupied = dashboard.percentageOccupied;
+        asOfDate = dashboard.property_now;
+    });
+
+    export let url = "";
 </script>
 
 <main>
-	<!-- <img src={ihLogo} alt="IH Logo" width="100" height="100"> -->
+    <Styles />
+    <!-- <img src={ihLogo} alt="IH Logo" width="100" height="100"> -->
 
-	<PgTop ihLogo={ihLogo} />
+    <PgTop />
 
-	<!-- <h1>Hello {name}! you stud</h1> -->
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+    <Router>
+        <!-- <Container fluid>
+            <Row>
+                <Col>
+					<Link to="/">Dashboard</Link>
+				</Col>
+                <Col>
+					<Link to="/about">About</Link>
+				</Col>
+                <Col>
+					<Link to="/blog">Blog</Link>
+				</Col>
+            </Row>
+        </Container> -->
+        <Navbar color="light" theme="light">
+            <NavbarBrand href="/" class="me-auto">sveltestrap</NavbarBrand>
+            <Nav tabs>
+                <NavItem>
+                    <NavLink>
+                        <Link to="/">Dashboard</Link>
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink>
+                        <Link to="/about">About</Link>
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink>
+                        <Link to="/blog">Blog</Link>
+                    </NavLink>
+                </NavItem>
+            </Nav>
+        </Navbar>
 
-	<button onclick={get_dashboard}>Dashboard: {dashboard || 'Get Dashboard'}</button>	
-	<button onclick={once(get_version)}>Version: {version || 'Get Version'}</button>
+        <!-- <div class="navbar">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <Link to="/">Dashboard</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/about">About</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/blog">Blog</Link>
+                </li>
+            </ul>
+        </div> -->
 
-	{#if dashboard}
-	<table>
-		<tbody>
-		<tr>
-			<th>Arrivals</th>
-			<td>{arrivals}</td>
-		</tr>
-		<tr>
-			<th>Departures</th>
-			<td>{departures}</td>
-		</tr>
-		<tr>
-			<th>Guests In House</th>
-			<td>{gstsInHouse}</td>
-		</tr>
-		<tr>
-			<th>Occupancy</th>
-			<td>{pctOccupied}%</td>
-		</tr>
-		<tr>
-			<th>As of</th>
-			<td>{asOfDate}</td>
-		</tr>
-		</tbody>
-	</table>
-	{/if}
+        <hr />
+        <div>
+            <Route path="/" component={Dashboard} />
+            <Route path="/about" component={About} />
+            <Route path="/blog" component={Blog} />
+        </div>
+    </Router>
+    <!-- <h1>Hello {name}! you stud</h1> -->
+    <!-- <p>
+        Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
+        how to build Svelte apps.
+    </p> -->
 
+    <!-- <Button color="primary">Primary</Button> -->
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+    main {
+        text-align: center;
+        padding: 1em;
+        max-width: 240px;
+        margin: 0 auto;
+    }
 
-	th {
-		text-align: left;
-	}
+    th {
+        text-align: left;
+    }
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+    @media (min-width: 640px) {
+        main {
+            max-width: none;
+        }
+    }
+    .NavItem {
+        display: flex;
+        justify-content: space-around;
+        margin: 10px 0;
+    }
 </style>

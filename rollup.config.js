@@ -6,6 +6,7 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import css from 'rollup-plugin-css-only';
+import rebase from 'rollup-plugin-rebase';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -38,6 +39,7 @@ export default {
 		name: 'app',
 		file: 'public/build/bundle.js'
 	},
+	makeAbsoluteExternalsRelative: true,
 	plugins: [
 		svelte({
 			compilerOptions: {
@@ -45,6 +47,13 @@ export default {
 				dev: !production
 			}
 		}),
+		// copy the images directory
+		// rebase({
+		// 	targets: [{ 
+		// 		src: 'src/images/**/*', 
+		// 		dest: 'public/images' 
+		// 	}]
+		// }),
 		// bring in the bootstrap CSS
 		copy({
             targets: [{ 
