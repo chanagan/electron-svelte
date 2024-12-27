@@ -26,6 +26,7 @@
     "svelte-routing": "^2.13.0"
   },
   "dependencies": {
+    "@mateothegreat/svelte5-router": "^0.1.38",
     "@sveltestrap/sveltestrap": "^6.2.7",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3"

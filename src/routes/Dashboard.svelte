@@ -1,60 +1,109 @@
 <script>
-	import { Button, Styles } from "@sveltestrap/sveltestrap";
+    import { onMount, onDestroy } from "svelte";
+    import { Button, Container, Row, Col, Styles } from "@sveltestrap/sveltestrap";
     // Add any necessary JavaScript here
     let version = "";
     let dashboard = "";
     let arrivals = "",
-        departures = "";
-    let gstsInHouse = "",
+        departures = "",
+        gstsInHouse = "",
         pctOccupied = "",
+        roomsOccupied = "",
+        bookings = "",
+        cancellations = "",
+        stayovers = "",
         asOfDate = "";
 
     const get_dashboard = async () => {
-        api.send("get/dashboard");
+        let dashDate = document.getElementById("dashDate").value;
+        api.send("get/dashboard", dashDate);
         // dashboard = await api.getDashboard();
     };
 
-    window.addEventListener("message", (event) => {
-        console.log("rend: event: ", event);
-        dashboard = event.data.dashboard;
-		
+    const showDashboard = (event) => {
         console.log("rend: dashboard: ", dashboard);
+        if (event.data.type === "dashboard") {
+            console.log("rend: event: ", event);
+            dashboard = event.data.dashboard;
 
-        arrivals = dashboard.arrivals;
-        departures = dashboard.departures;
-        gstsInHouse = dashboard.guestsInHouse;
-        pctOccupied = dashboard.percentageOccupied;
-        asOfDate = dashboard.property_now;
+            arrivals = dashboard.arrivalsConfirmed;
+            departures = dashboard.departuresConfirmed;
+            gstsInHouse = dashboard.guestsInHouse;
+            bookings = dashboard.bookings;
+            cancellations = dashboard.cancellations;
+            roomsOccupied = dashboard.roomsOccupied;
+            stayovers = dashboard.stayovers;
+            pctOccupied = dashboard.percentageOccupied;
+            asOfDate = dashboard.property_now;
+        }
+    };
+
+    onMount(() => {
+        console.log("rend: onMount");
+        window.addEventListener("message", showDashboard);
     });
 
+    onDestroy(() => {
+        console.log("rend: onDestroy");
+        window.removeEventListener("message", showDashboard);
+    });
 </script>
 
 <main>
-    <h1>Dashboard</h1>
-    <button onclick={get_dashboard}>Dashboard: {dashboard || "Get Dashboard"}</button>
+    <Styles dark />
+    <Container mb-5>
+        <Row>
+            <Col>
+                <h3>Dashboard</h3> 
+            </Col>
+            <Col>
+                <input type="date" id="dashDate" style="padding-right: 5px;" />
+            </Col>
+            <Col>
+                <Button color="secondary" onclick={get_dashboard}>Get Dashboard</Button>
+            </Col>
+        </Row>
+    </Container>
+    <!-- <h1>Dashboard</h1>
+    <input type="date" id="dashDate" style="padding-right: 5px;" />
+    <Button color="primary" onclick={get_dashboard}>Get Dashboard</Button> -->
+    <!-- <button onclick={get_dashboard}>Get Dashboard</button> -->
 
     {#if dashboard}
         <table>
+            <thead>
+                <tr>
+                    <th colspan="4" text-align="center">Dashboard</th>
+                </tr>
+                <tr>
+                    <th colspan="2" text-align="center">As of Today</th>
+                    <th colspan="2" text-align="center">{asOfDate}</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <th>Arrivals</th>
                     <td>{arrivals}</td>
+                    <th>Bookings</th>
+                    <td>{bookings}</td>
                 </tr>
                 <tr>
                     <th>Departures</th>
                     <td>{departures}</td>
+                    <th>Cancellations</th>
+                    <td>{cancellations}</td>
                 </tr>
                 <tr>
                     <th>Guests In House</th>
                     <td>{gstsInHouse}</td>
+                    <th>Stayovers</th>
+                    <td>{stayovers}</td>
                 </tr>
                 <tr>
-                    <th>Occupancy</th>
+                    <th>Occupancy %</th>
                     <td>{pctOccupied}%</td>
-                </tr>
-                <tr>
-                    <th>As of</th>
-                    <td>{asOfDate}</td>
+                    <th>Occupancy Rooms</th>
+                    <td>{roomsOccupied}</td>
                 </tr>
             </tbody>
         </table>
@@ -72,5 +121,13 @@
     tr {
         border-bottom: 1px solid #ddd;
         text-align: left;
+    }
+    thead {
+        background-color: #f2f2f2;
+        border-bottom: 1px solid black;
+
+    }
+    thead tr {
+        text-align: center;
     }
 </style>
