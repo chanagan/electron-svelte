@@ -2,16 +2,16 @@
     import { onMount, onDestroy } from "svelte";
     // Add any necessary JavaScript here
     let version = "";
-    let dashboard = "";
-    let arrivals = "",
-        departures = "",
-        gstsInHouse = "",
-        pctOccupied = "",
-        roomsOccupied = "",
-        bookings = "",
-        cancellations = "",
-        stayovers = "",
-        asOfDate = "";
+    let dashboard = $state("");
+    let arrivals = $state(""),
+        departures = $state(""),
+        gstsInHouse = $state(""),
+        pctOccupied = $state(""),
+        roomsOccupied = $state(""),
+        bookings = $state(""),
+        cancellations = $state(""),
+        stayovers = $state(""),
+        asOfDate = $state("");
 
     const get_dashboard = async () => {
         let dashDate = document.getElementById("dashDate").value;
