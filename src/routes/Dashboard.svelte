@@ -1,6 +1,5 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { Button, Container, Row, Col, Styles } from "@sveltestrap/sveltestrap";
     // Add any necessary JavaScript here
     let version = "";
     let dashboard = "";
@@ -39,7 +38,7 @@
     };
 
     onMount(() => {
-        console.log("rend: onMount");
+        console.log("rend: dashboard onMount");
         window.addEventListener("message", showDashboard);
     });
 
@@ -50,24 +49,24 @@
 </script>
 
 <main>
-    <Styles dark />
-    <Container mb-5>
-        <Row>
-            <Col>
-                <h3>Dashboard</h3> 
-            </Col>
-            <Col>
+    <!-- <Styles dark /> -->
+    <div class="container">
+        <div class="row">
+            <div class="col-3 align-items-center d-flex justify-content-center">
+                <h3>Dashboard for:</h3>
+            </div>
+            <div class="col-2 align-items-center d-flex justify-content-center">
                 <input type="date" id="dashDate" style="padding-right: 5px;" />
-            </Col>
-            <Col>
-                <Button color="secondary" onclick={get_dashboard}>Get Dashboard</Button>
-            </Col>
-        </Row>
-    </Container>
-    <!-- <h1>Dashboard</h1>
-    <input type="date" id="dashDate" style="padding-right: 5px;" />
-    <Button color="primary" onclick={get_dashboard}>Get Dashboard</Button> -->
-    <!-- <button onclick={get_dashboard}>Get Dashboard</button> -->
+            </div>
+            <div class="col-2 align-items-center d-flex justify-content-center">
+                <button
+                    type="button"
+                    class="btn btn-secondary btn-sm"
+                    onclick={get_dashboard}>Get Dashboard</button
+                >
+            </div>
+        </div>
+    </div>
 
     {#if dashboard}
         <table>
@@ -76,8 +75,7 @@
                     <th colspan="4" text-align="center">Dashboard</th>
                 </tr>
                 <tr>
-                    <th colspan="2" text-align="center">As of Today</th>
-                    <th colspan="2" text-align="center">{asOfDate}</th>
+                    <th colspan="4" text-align="center">As of Now: {asOfDate}</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,7 +100,7 @@
                 <tr>
                     <th>Occupancy %</th>
                     <td>{pctOccupied}%</td>
-                    <th>Occupancy Rooms</th>
+                    <th>Rooms</th>
                     <td>{roomsOccupied}</td>
                 </tr>
             </tbody>
@@ -111,21 +109,20 @@
 </main>
 
 <style>
-    h1 {
+    h3 {
         color: blue;
     }
     table {
         border-collapse: collapse;
         width: 100%;
     }
-    tr {
+    tbody tr {
         border-bottom: 1px solid #ddd;
         text-align: left;
     }
     thead {
         background-color: #f2f2f2;
-        border-bottom: 1px solid black;
-
+        border-bottom: 3px solid black;
     }
     thead tr {
         text-align: center;

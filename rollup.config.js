@@ -35,9 +35,12 @@ export default {
 	input: 'src/main.js',
 	output: {
 		sourcemap: true,
-		format: 'iife',
+		// format: 'iife',
+		format: 'es',
+		inlineDynamicImports: true,
 		name: 'app',
-		file: 'public/build/bundle.js'
+		// file: 'public/build/bundle.js'
+		dir: 'public/build/'
 	},
 	makeAbsoluteExternalsRelative: true,
 	plugins: [
@@ -59,7 +62,11 @@ export default {
             targets: [{ 
                 src: 'node_modules/bootstrap/dist/**/*', 
                 dest: 'public/vendor/bootstrap' 
-            }]
+            },{ 
+                src: 'node_modules/bootstrap-icons/**/*', 
+                dest: 'public/vendor/bootstrap-icons' 
+            }	
+		]
         }),		
 		// we'll extract any component CSS out into
 		// a separate file - better for performance

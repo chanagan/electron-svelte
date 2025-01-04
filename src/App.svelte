@@ -1,26 +1,27 @@
 <script>
+    import "carbon-components-svelte/css/all.css";
     import { Router, Route, Link } from "svelte-routing";
     import Dashboard from "./routes/Dashboard.svelte";
-    import About from "./routes/About.svelte";
+    import Vip from "./routes/Vip.svelte";
     import Blog from "./routes/Blog.svelte";
 
-    import { Container, Row, Col } from "@sveltestrap/sveltestrap";
-    import { Button, Styles } from "@sveltestrap/sveltestrap";
     import {
-        Collapse,
+        Styles,
         Nav,
         NavItem,
         NavLink,
         Navbar,
         NavbarBrand,
-        NavbarToggler,
     } from "@sveltestrap/sveltestrap";
 
     import PgTop from "./components/PgTop.svelte";
 
 
-    export let url = "";
-</script>
+  let theme = "g10"; // "white" | "g10" | "g80" | "g90" | "g100"
+
+  $: document.documentElement.setAttribute("theme", theme);
+
+ </script>
 
 <main>
     <Styles dark />
@@ -38,7 +39,7 @@
                 </NavItem>
                 <NavItem>
                     <NavLink>
-                        <Link to="/about">About</Link>
+                        <Link to="/vip">Vip</Link>
                     </NavLink>
                 </NavItem>
                 <NavItem>
@@ -52,7 +53,7 @@
         <hr />
         <div>
             <Route path="/" component={Dashboard} />
-            <Route path="/about" component={About} />
+            <Route path="/vip" component={Vip} />
             <Route path="/blog" component={Blog} />
         </div>
     </Router>
@@ -66,18 +67,9 @@
         margin: 0 auto;
     }
 
-    th {
-        text-align: left;
-    }
-
     @media (min-width: 640px) {
         main {
             max-width: none;
         }
-    }
-    .NavItem {
-        display: flex;
-        justify-content: space-around;
-        margin: 10px 0;
     }
 </style>

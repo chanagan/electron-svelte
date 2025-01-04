@@ -11,8 +11,13 @@ const WINDOW_API = {
 contextBridge.exposeInMainWorld('api', WINDOW_API)
 
 ipcRenderer.on('dashboard', (event, dashboard) => {
-    // console.log('preload dashboard:', dashboard)
     window.postMessage({ type: 'dashboard', dashboard }, '*')
-    // window.dispatchEvent(new CustomEvent('dashboard', { detail: dashboard }))
+})
 
+ipcRenderer.on('vipResList', (event, vipResRecordsList) => {
+    window.postMessage({ type: 'vipResList', vipResRecordsList }, '*')
+})
+
+ipcRenderer.on('vipResDetail', (event, vipResDetailRecordsList) => {
+    window.postMessage({ type: 'vipResDetail', vipResDetailRecordsList }, '*')
 })

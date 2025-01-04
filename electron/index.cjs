@@ -9,6 +9,8 @@ let configFile = join(appData, "ih-ap-config.json");
 const cbConfig = require(configFile);
 
 const { getDashboard } = require('./js/dshMainFuncs.cjs');
+const { getVIP } = require('./js/vipMainFuncs.cjs');
+
 // const { get } = require('http');
 
 let win;
@@ -41,3 +43,10 @@ ipcMain.on('get/dashboard', async (event, dashDate) => {
     getDashboard(win, dashDate);
 });
 
+ipcMain.on('get/vip', async (event,vipDates) => {
+    let vipFrmDt = vipDates.vipFrmDt;
+    let vipToDt = vipDates.vipToDt;
+    
+    console.log('main: get/vip', vipFrmDt, vipToDt);
+    getVIP(win, vipFrmDt, vipToDt);
+});
