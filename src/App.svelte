@@ -1,6 +1,7 @@
 <script>
   import { run } from 'svelte/legacy';
 
+  
     import "carbon-components-svelte/css/all.css";
     import { Router, Route, Link } from "svelte-routing";
     import Dashboard from "./routes/Dashboard.svelte";
@@ -21,8 +22,9 @@
 
   let theme = "g10"; // "white" | "g10" | "g80" | "g90" | "g100"
 
-  run(() => {
-    document.documentElement.setAttribute("theme", theme);
+//   run(() => {
+    $effect.pre(() => {
+        document.documentElement.setAttribute("theme", theme);
   });
 
  </script>
@@ -32,6 +34,11 @@
 
 	<PgTop />
 
+    <script>
+
+      </script>
+      
+      
     <Router>
         <Navbar color="light" theme="light">
             <NavbarBrand href="/" class="me-auto">sveltestrap</NavbarBrand>

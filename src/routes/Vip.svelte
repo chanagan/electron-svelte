@@ -1,6 +1,8 @@
 <script>
     import { Button } from "carbon-components-svelte";
-    import {DatePicker, DatePickerInput} from "carbon-components-svelte";
+    import { DatePicker, DatePickerInput } from "carbon-components-svelte";
+    import { Grid, Row, Column } from "carbon-components-svelte";
+    import  Search  from "carbon-icons-svelte/lib/Search.svelte";
 
     import { onMount, onDestroy } from "svelte";
     import VipTable from "../components/VipTable.svelte";
@@ -15,6 +17,8 @@
         console.log("rend: VIPs from", vipFrmDt, "to", vipToDt);
         api.send("get/vip", { vipFrmDt, vipToDt });
     };
+
+    let vipCount = $state(0);
 
     onMount(() => {
         vipList = false;
@@ -33,50 +37,53 @@
             vipList = true;
             // console.log("rend: VIPs: ", event.data.vipResDetailRecordsList);
             vipListRecords = event.data.vipResDetailRecordsList;
+            vipCount = vipListRecords.length;
         }
     };
-    let selectedDates = $state([]);
+    let vipSelDates = $state([]);
 </script>
 
 <main>
-    
-    <DatePicker datePickerType="range" bind:selectedDates={selectedDates} >
-        <DatePickerInput id="date-picker-input-id-1" placeholder="mm/dd/yyyy" />
-        <DatePickerInput id="date-picker-input-id-2" placeholder="mm/dd/yyyy" />
+    <Grid>
+        <Row>
+            <Column>
+                <h1>VIPs</h1>
+            </Column>
+        </Row>
+    </Grid>
+
+    <DatePicker datePickerType="range" dateFormat="Y-m-d" id="vipSelDates">
+        <Grid>
+            <Row>
+                <Column>
+                    <DatePickerInput
+                        labelText="From Date"
+                        id="vipFrmDt"
+                        placeholder="yyyy-mm-dd"
+                    />
+                </Column>
+                <Column>
+                    <DatePickerInput
+                        labelText="To Date"
+                        id="vipToDt"
+                        placeholder="yyyy-mm-dd"
+                    />
+                </Column>
+                <Column>
+                    <Search size={32} title="Get VIPs" onclick={get_VIP} />
+                    <!-- <Button kind="tertiary" on:click={get_VIP}>Get VIPs</Button> -->
+                </Column>
+            </Row>
+        </Grid>
     </DatePicker>
 
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-3 align-items-center d-flex justify-content-center">
-                <h3>VIP Guests from:</h3>
-            </div>
-            <div class="col-2 align-items-center d-flex justify-content-center">
-                <input type="date" id="vipFrmDt" style="padding-right: 5px;" />
-            </div>
-            <div class="col-1 align-items-center d-flex justify-content-center">
-                <h3>to:</h3>
-            </div>
-            <div class="col-2 align-items-center d-flex justify-content-center">
-                <input type="date" id="vipToDt" style="padding-right: 5px;" />
-            </div>
-            <div class="col-2 align-items-center d-flex justify-content-center">
-                 <button
-                    type="button"
-                    class="btn btn-secondary btn-sm"
-                    onclick={get_VIP}>Get VIPs</button> 
-            </div>
-        </div>
-    </div> -->
-    <Button kind="ghost" on:click={get_VIP}>Get VIPs</Button>
 
-    <p>vipList: {vipList}</p>
+    <p>Count: {vipCount}</p>
     {#if vipList}
         {#key vipListRecords}
             <VipTable {vipListRecords} />
         {/key}
     {/if}
-
-
 </main>
 
 <style>

@@ -36,11 +36,11 @@ export default {
 	output: {
 		sourcemap: true,
 		// format: 'iife',
-		format: 'es',
+		format: 'umd',
 		inlineDynamicImports: true,
 		name: 'app',
-		// file: 'public/build/bundle.js'
-		dir: 'public/build/'
+		file: 'public/build/bundle.js'
+		// dir: 'public/build/'
 	},
 	makeAbsoluteExternalsRelative: true,
 	plugins: [

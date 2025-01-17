@@ -33,6 +33,7 @@ function main() {
     win.loadFile(join(__dirname, '../public/index.html'));
     win.on('ready-to-show', win.show);
 
+    console.log("main: isDev: ", isDev);
     if (isDev) win.webContents.openDevTools({mode: 'detach'});  
 }
 
