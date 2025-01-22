@@ -10,6 +10,7 @@ const cbConfig = require(configFile);
 
 const { getDashboard } = require('./js/dshMainFuncs.cjs');
 const { getVIP } = require('./js/vipMainFuncs.cjs');
+const { getHA, getHADetails } = require('./js/haMainFuncs.cjs');
 
 // const { get } = require('http');
 
@@ -39,6 +40,12 @@ function main() {
 
 ipcMain.handle('get/version', () => app.getVersion());
 
+ipcMain.on('get/haDetails', async (event, accountID) => {
+    // console.log('main: get/haDetails', accountID);
+    console.log(`main: get/haDetails: ${accountID} `);
+    getHADetails(win, accountID);
+});
+
 ipcMain.on('get/dashboard', async (event, dashDate) => {
     console.log('main: get/dashboard', dashDate);
     getDashboard(win, dashDate);
@@ -51,3 +58,9 @@ ipcMain.on('get/vip', async (event,vipDates) => {
     console.log('main: get/vip', vipFrmDt, vipToDt);
     getVIP(win, vipFrmDt, vipToDt);
 });
+
+ipcMain.on('get/ha', async (event) => {
+    console.log('main: get/ha');
+    getHA(win);
+});
+

@@ -21,3 +21,11 @@ ipcRenderer.on('vipResList', (event, vipResRecordsList) => {
 ipcRenderer.on('vipResDetail', (event, vipResDetailRecordsList) => {
     window.postMessage({ type: 'vipResDetail', vipResDetailRecordsList }, '*')
 })
+
+ipcRenderer.on('haList', (event, haAcctRecordsList) => {
+    window.postMessage({ type: 'haList', haAcctRecordsList }, '*')
+})
+
+ipcRenderer.on('haDetails', (event, haDetails) => {
+    window.postMessage({ type: 'haDetails', haDetails }, '*')
+})  

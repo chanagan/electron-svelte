@@ -1,6 +1,5 @@
 <script>
     import { DataTable, Pagination } from "carbon-components-svelte";
-    import DataView from "carbon-icons-svelte/lib/DataView.svelte";
 
     const headers = [
         // { key: "reservationID", value: "Res ID" },
