@@ -1,17 +1,20 @@
 <script>
     import {
-        Tag,
-        // TextInput,
-        // Grid, Row, Column,
-    } from "carbon-components-svelte";
-    import Search from "carbon-icons-svelte/lib/Search.svelte";
-    import { Container, Input, Row, Col } from "@sveltestrap/sveltestrap";
+        Container,
+        Input,
+        Row,
+        Col,
+        Badge,
+        Icon,
+    } from "@sveltestrap/sveltestrap";
+
+    import { countState } from "./sharedState.svelte.js";
 
     let haName = $state("");
     let haCount = $state(20);
 
     const get_HAs = () => {
-        console.log("get_VIP: ", haName);
+        console.log("get_HA: ", haName);
     };
 </script>
 
@@ -26,10 +29,14 @@
             />
         </Col>
         <Col xs="1">
-            <Search size={32} onclick={get_HAs} />
+            <Icon name="search" size={16} onclick={get_HAs} />
+            <!-- <Search size={32} onclick={get_HAs} /> -->
         </Col>
         <Col xs="1">
-            <Tag type="blue">{haCount}</Tag>
+            <Input
+                type="plaintext"
+                value={countState.haCount}
+                 />
         </Col>
     </Row>
 </Container>
