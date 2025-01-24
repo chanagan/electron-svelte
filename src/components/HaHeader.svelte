@@ -8,10 +8,15 @@
         Icon,
     } from "@sveltestrap/sveltestrap";
 
-    import { countState } from "./sharedState.svelte.js";
+    import { haCount } from "../store.js";
+
+    let rCount = $state(0);
+    // haCount.subscribe((value) => {
+    //     rCount = value;
+    // });
 
     let haName = $state("");
-    let haCount = $state(20);
+    // let haCount = $state(20);
 
     const get_HAs = () => {
         console.log("get_HA: ", haName);
@@ -19,7 +24,7 @@
 </script>
 
 <Container>
-    <Row>
+    <Row class="align-items-center">
         <Col xs="6">
             <Input
                 id="plainExample"
@@ -29,14 +34,18 @@
             />
         </Col>
         <Col xs="1">
-            <Icon name="search" size={16} onclick={get_HAs} />
-            <!-- <Search size={32} onclick={get_HAs} /> -->
+            {#if haName}
+                <Icon name="search" size={32} onclick={get_HAs} />
+            {/if}
         </Col>
-        <Col xs="1">
-            <Input
+        <Col xs="3">
+            {#if $haCount > 0}
+            Accounts: {$haCount} 
+            {/if}
+            <!-- <Input
                 type="plaintext"
-                value={countState.haCount}
-                 />
+                value={haCount}"
+                 /> -->
         </Col>
     </Row>
 </Container>

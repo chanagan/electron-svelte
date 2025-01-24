@@ -2,9 +2,9 @@
     import { Container, Row, Col } from "@sveltestrap/sveltestrap";
     import HaHeader from "../components/HaHeader.svelte";
     import HaStatus from "../components/HaStatus.svelte";
-    import HaTable from "../components/HaTable.svelte";
 
     import { onMount, onDestroy } from "svelte";
+    import HaList from "../components/HaList.svelte";
     let haList = $state(false);
     let haAcctRecordsList = $state([]);
 
@@ -26,16 +26,15 @@
             haAcctRecordsList = event.data.haAcctRecordsList;
             // console.log("rend: event: ", haAcctRecordsList);
         }
-    }
+    };
 </script>
 
 <main>
-
     House Accounts
 
     <hr size="3" color="red" />
 
-    <Container>
+    <Container fluid>
         <Row>
             <Col>
                 <HaHeader />
@@ -44,13 +43,19 @@
                 <HaStatus />
             </Col>
         </Row>
+        <hr size="3" color="red" />
+        <Row>
+            <Col>
+                {#if haList}
+                    {#key haAcctRecordsList}
+                        <!-- <h3>House Accounts  </h3> -->
+                        <HaList {haAcctRecordsList} />
+                    {/key}
+                {/if}
+            </Col>
+        </Row>
     </Container>
-    <hr size="3" color="red" />
-    {#if haList}
-        {#key haAcctRecordsList}
-        <!-- <h3>House Accounts  </h3> -->
-            <HaTable {haAcctRecordsList} />
-        {/key}
-    {/if}
-
 </main>
+<style>
+
+</style>
