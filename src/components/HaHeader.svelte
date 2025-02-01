@@ -4,19 +4,14 @@
         Input,
         Row,
         Col,
-        Badge,
         Icon,
     } from "@sveltestrap/sveltestrap";
 
-    import { haCount } from "../store.js";
+    import { haCount } from "../sharedState.svelte.js";
 
-    let rCount = $state(0);
-    // haCount.subscribe((value) => {
-    //     rCount = value;
-    // });
+
 
     let haName = $state("");
-    // let haCount = $state(20);
 
     const get_HAs = () => {
         console.log("get_HA: ", haName);
@@ -42,12 +37,7 @@
             {#if $haCount > 0}
             Accounts: {$haCount} 
             {/if}
-            <!-- <Input
-                type="plaintext"
-                value={haCount}"
-                 /> -->
+ 
         </Col>
     </Row>
 </Container>
-
-<!-- <Badge color="info">0</Badge> -->

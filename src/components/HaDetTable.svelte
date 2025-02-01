@@ -1,24 +1,12 @@
 <script>
-    import { Container, Row, Col } from "@sveltestrap/sveltestrap";
-    import { onMount, onDestroy } from "svelte";
     // import SvelteTable from "svelte-table";
-
-    import HaDetTable from "./HaDetTable.svelte";
-    import HaDetRecords from "./HaDetRecords.svelte";
-
-    // import { haDetails } from "../sharedState.svelte.js";
     import { haRecord } from "../sharedState.svelte.js";
-    // import { haDetRecord } from "../sharedState.svelte.js";
-
-    // let {haRecord} = $props()
-    console.log("haDetails: stores: ", $haRecord);
+    import { Table } from "@sveltestrap/sveltestrap";
 
     const nFormat = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
     });
-
-    // console.log("haDetails: ", $haRecord);
 
     const columns = [
         {
@@ -31,7 +19,7 @@
         },
         {
             key: "monMin",
-            title: "Min",
+            title: "Minimum",
             value: (v) => v.charges.monMin,
             renderValue: (v) => nFormat.format(v.charges.monMin),
             class: "text-end",
@@ -47,7 +35,7 @@
         },
         {
             key: "minTax",
-            title: "Tax",
+            title: "7.5%",
             value: (v) => v.charges.minTax,
             renderValue: (v) => nFormat.format(v.charges.minTax),
             class: "text-end",
@@ -63,7 +51,7 @@
         },
         {
             key: "creChg",
-            title: "Cre Chg",
+            title: "3%",
             value: (v) => v.charges.creChg,
             renderValue: (v) => nFormat.format(v.charges.creChg),
             class: "text-end",
@@ -71,7 +59,7 @@
         },
         {
             key: "totChg",
-            title: "Total Chg",
+            title: "Total",
             value: (v) => v.charges.totChg,
             renderValue: (v) => nFormat.format(v.charges.totChg),
             class: "text-end",
@@ -79,41 +67,31 @@
         },
     ];
 
+    let row = $state({});
+    row = $haRecord;
+
 </script>
 
 <main>
-    {#if $haRecord.accountID}
-        <b>{$haRecord.accountName}</b>
-        <Container>
-            <Row>
-                <Col>
-                    {#key $haRecord.accountID}
-                    <HaDetTable {$haRecord}/>
-                    {/key}
-                </Col> 
-            </Row>
-            <!-- <hr />
-            <Row>
-                <Col>
-                    <h6>
-                        {$haRecord.charges.balance} Charges Details
-                    </h6>
-                </Col>
-            </Row> -->
-            <hr />
-            <Row>
-                <Col>
-                    {#key $haRecord.accountID}
-                    <HaDetRecords />
-                    {/key}
-                </Col>
-            </Row>
-        </Container>
-    {:else}
-        <h6>No House Account Details</h6>
-    {/if}
+<Table bordered size="sm">
+    <thead class="table-dark">
+        <tr>
+        {#each columns as c}
+            <th class={c.headerClass}>{c.title}</th>
+        {/each}
+        </tr>
+    </thead>
+    <tbody>
+        <!-- {#each rows as r} -->
+            <tr>
+                {#each columns as c}
+                    <td class={c.class}>{nFormat.format(row.charges[c.key])}</td>
+                {/each}
+            </tr>
+        <!-- {/each} -->
+    </tbody>
+</Table>
 </main>
 
 <style>
-
 </style>

@@ -64,7 +64,7 @@ const getHADetails = (window, parms) => {
             let haRecord = {};
             haRecord.accountID = keyID;
             haRecord.accountName = actName;
-            // haRecord.accountStatus = accountStatus;
+            haRecord.accountStatus = accountStatus;
 
             let charges = computeCharges(haRecord.accountName, haData)
             haRecord.charges = charges

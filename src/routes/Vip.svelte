@@ -70,7 +70,7 @@
                     />
                 </Column>
                 <Column>
-                    <Search size={32} title="Get VIPs" onclick={get_VIP} />
+                    <Search size={32} title="Get VIPs" on:click={get_VIP} />
                     <!-- <Button kind="tertiary" on:click={get_VIP}>Get VIPs</Button> -->
                 </Column>
             </Row>
