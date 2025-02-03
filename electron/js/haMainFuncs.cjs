@@ -49,6 +49,7 @@ const computeCharges = (accountName, haData) => {
 let haWin;
 const getHADetails = (window, parms) => {
     let { rowID, actName, accountStatus } = parms;
+    console.log('ipcMain main: getHaBalance: ', rowID, actName, accountStatus)
     let keyID = rowID;
     // console.log('ipcMain main: getHaBalance: ', keyID)
     let params = new URLSearchParams({

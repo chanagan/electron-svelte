@@ -83,7 +83,6 @@
 
 <main>
     {#if $haRecord.accountID}
-        <b>{$haRecord.accountName}</b>
         <Container>
             <Row>
                 <Col>
@@ -92,15 +91,7 @@
                     {/key}
                 </Col> 
             </Row>
-            <!-- <hr />
-            <Row>
-                <Col>
-                    <h6>
-                        {$haRecord.charges.balance} Charges Details
-                    </h6>
-                </Col>
-            </Row> -->
-            <hr />
+            <b>{$haRecord.accountName}</b>
             <Row>
                 <Col>
                     {#key $haRecord.accountID}

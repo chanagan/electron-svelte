@@ -5,6 +5,8 @@
 
     import { onMount, onDestroy } from "svelte";
     import HaList from "../components/HaList.svelte";
+    import HaDetails from "../components/HaDetails.svelte";
+
     let haList = $state(false);
     let haAcctRecordsList = $state([]);
 
@@ -45,13 +47,16 @@
         </Row>
         <hr size="3" color="red" />
         <Row>
-            <Col>
+            <Col xs="5">
                 {#if haList}
                     {#key haAcctRecordsList}
                         <!-- <h3>House Accounts  </h3> -->
                         <HaList {haAcctRecordsList} />
                     {/key}
                 {/if}
+            </Col>
+            <Col xs="7">
+                <HaDetails />
             </Col>
         </Row>
     </Container>

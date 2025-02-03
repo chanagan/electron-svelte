@@ -66,12 +66,15 @@
     // tell main we want details for the selected row
     const onSelect = (event) => {
         let thisTR = event.target.parentNode;
-        // const rowID = event.detail.row.accountID;
+        let rowID = thisTR.dataset.key;
+        let actName = thisTR.dataset.name;
+        let accountStatus = thisTR.dataset.status;
+        // const rowID = thisTR.dataset.key;
         // const actName = event.detail.row.accountName;
         // const actStatus = event.detail.row.accountStatus;
         console.log("haList: onSelect: ", rowID);
         // api.send("get/haDetails", event.detail.row.accountID);
-        // api.send("get/haDetails", { rowID, actName, actStatus });
+        api.send("get/haDetails", { rowID, actName, accountStatus });
         // console.log("haTable: onSelect: ", selectedRow);
     };
 
@@ -94,10 +97,9 @@
 </script>
 
 <main>
-
     <div class="container haContainer">
         <Table bordered size="sm" hover>
-            <thead class="header table-dark">   
+            <thead class="header table-dark">
                 <tr>
                     {#each columns as c}
                         <th class={c.headerClass}>{c.title}</th>
@@ -106,7 +108,12 @@
             </thead>
             <tbody>
                 {#each rows as row}
-                    <tr onclick={onSelect} data-key={row.accountID}>
+                    <tr
+                        onclick={onSelect}
+                        data-key={row.accountID}
+                        data-name={row.accountName}
+                        data-status={row.accountStatus}
+                    >
                         {#each columns as c}
                             <td class={c.class}>{row[c.key]}</td>
                         {/each}
@@ -114,7 +121,6 @@
                 {/each}
             </tbody>
         </Table>
-
     </div>
     <!-- <Container>
         <Row>
@@ -137,7 +143,6 @@
             </Col>
         </Row>
     </Container> -->
-
 </main>
 
 <style>
@@ -147,8 +152,8 @@
     }
 
     .haContainer {
-        width: 30%;
-        height: 400px;
+        width: 100%;
+        height: 450px;
         overflow: auto;
     }
 </style>
