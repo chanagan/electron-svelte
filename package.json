@@ -14,24 +14,24 @@
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.0",
-    "electron": "34.0.1",
-    "electron-builder": "^25.1.8",
-    "rollup": "4.32.0",
+    "electron": "34.0.2",
+    "electron-builder": "26.0.5",
+    "rollup": "4.34.3",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-css-only": "^4.3.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-rebase": "^4.1.1",
     "rollup-plugin-svelte": "^7.2.2",
-    "svelte": "5.19.2",
+    "svelte": "5.19.7",
     "svelte-routing": "^2.13.0"
   },
   "dependencies": {
     "@mateothegreat/svelte5-router": "^0.1.38",
-    "@sveltestrap/sveltestrap": "7.0.3",
+    "@sveltestrap/sveltestrap": "7.1.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "carbon-components-svelte": "^0.87.0",
-    "carbon-icons-svelte": "^12.13.0",
+    "carbon-components-svelte": "0.87.5",
+    "carbon-icons-svelte": "13.1.0",
     "svelte-table": "^0.6.3"
   }
 }

@@ -1,5 +1,6 @@
 <script>
-    import { Button } from "carbon-components-svelte";
+    // import { Button } from "carbon-components-svelte";
+    import { Button } from "@sveltestrap/sveltestrap";
     import { DatePicker, DatePickerInput } from "carbon-components-svelte";
     import { Grid, Row, Column } from "carbon-components-svelte";
     import  Search  from "carbon-icons-svelte/lib/Search.svelte";
@@ -54,7 +55,7 @@
 
     <DatePicker datePickerType="range" dateFormat="Y-m-d" id="vipSelDates">
         <Grid>
-            <Row>
+            <Row class='align-items-end'>
                 <Column>
                     <DatePickerInput
                         labelText="From Date"
@@ -70,7 +71,20 @@
                     />
                 </Column>
                 <Column>
-                    <Search size={32} title="Get VIPs" on:click={get_VIP} />
+                    <Button
+                    on:click={get_VIP}
+                    class=""
+                    active={false}
+                    block={false}
+                    content="Search"
+                    close={false}
+                    color="info"
+                    disabled={false}
+                    href=""
+                    outline={true}
+                    size="md"
+                    value=""/>
+                    <!-- <Search size={32} title="Get VIPs" on:click={get_VIP} /> -->
                     <!-- <Button kind="tertiary" on:click={get_VIP}>Get VIPs</Button> -->
                 </Column>
             </Row>
