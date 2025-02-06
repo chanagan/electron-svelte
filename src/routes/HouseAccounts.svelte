@@ -38,10 +38,10 @@
 
     <Container fluid>
         <Row>
-            <Col>
+            <Col xs="6">
                 <HaHeader />
             </Col>
-            <Col>
+            <Col xs="2">
                 <HaStatus />
             </Col>
         </Row>

@@ -5,7 +5,7 @@
     import { haCount } from "../sharedState.svelte.js";
     import { haDetails } from "../sharedState.svelte.js";
     import { haRecord } from "../sharedState.svelte.js";
-
+import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
     haDetails.set(null);
 
     const columns = [
@@ -60,6 +60,7 @@
         let rowID = thisTR.dataset.key;
         let actName = thisTR.dataset.name;
         let accountStatus = thisTR.dataset.status;
+        console.log('haList: status: ', $haStatusOpen, " : ", $haStatusClosed)
         console.log("haList: onSelect: ", rowID);
         api.send("get/haDetails", { rowID, actName, accountStatus });
         // console.log("haTable: onSelect: ", selectedRow);

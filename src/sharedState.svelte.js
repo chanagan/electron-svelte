@@ -3,6 +3,11 @@ import { writable } from "svelte/store";
 export const haDetRecord = $state({ detail: {} });
 
 export const haCount = writable(0);
+export const haSelected = writable(false);
+
+export const haStatusOpen = writable(true);
+export const haStatusClosed = writable(true);
+
 export const haDetails = writable([]);
 
 export const haRecord = writable({
