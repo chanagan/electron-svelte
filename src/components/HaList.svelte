@@ -1,16 +1,10 @@
 <script>
-    import { Table, Container, Row, Col } from "@sveltestrap/sveltestrap";
+    import { Table } from "@sveltestrap/sveltestrap";
     import { onMount, onDestroy } from "svelte";
-    import SvelteTable from "svelte-table";
-    import HaDetails from "./HaDetails.svelte";
 
     import { haCount } from "../sharedState.svelte.js";
     import { haDetails } from "../sharedState.svelte.js";
     import { haRecord } from "../sharedState.svelte.js";
-
-    import { haDetRecord } from "../sharedState.svelte.js";
-
-    import { haBalRecord } from "../sharedState.svelte.js";
 
     haDetails.set(null);
 
@@ -48,9 +42,6 @@
         rowCnt++;
     }
 
-    let selectedRow = [];
-    let rowKey = $state("accountID");
-
     onMount(() => {
         console.log("haList: onMount: ");
         window.addEventListener("message", showHaDetails);
@@ -69,11 +60,7 @@
         let rowID = thisTR.dataset.key;
         let actName = thisTR.dataset.name;
         let accountStatus = thisTR.dataset.status;
-        // const rowID = thisTR.dataset.key;
-        // const actName = event.detail.row.accountName;
-        // const actStatus = event.detail.row.accountStatus;
         console.log("haList: onSelect: ", rowID);
-        // api.send("get/haDetails", event.detail.row.accountID);
         api.send("get/haDetails", { rowID, actName, accountStatus });
         // console.log("haTable: onSelect: ", selectedRow);
     };
@@ -83,15 +70,13 @@
         console.log("haList: showHaDetails: ");
         if (event.data.type === "haDetails") {
             // this is the selected row
-            let keyID = event.data.haDetails.accountID;
+            // let keyID = event.data.haDetails.accountID;
             // find the index of the selected row
-            const index = rows.findIndex((row) => row.accountID === keyID); //rows.findIndex(row => user.name === 'Bob');
+            // const index = rows.findIndex((row) => row.accountID === keyID); //rows.findIndex(row => user.name === 'Bob');
             console.log("haList: showHaDetails: ", event.data);
             // rows[index].charges = event.data.haDetails.charges;
             haRecord.set(event.data.haDetails);
             haSelected = true;
-            // haDetRecord.detail = event.data.haDetails;
-            // haDetails.update(event.data.haDetails);
         }
     };
 </script>
@@ -122,27 +107,6 @@
             </tbody>
         </Table>
     </div>
-    <!-- <Container>
-        <Row>
-            <Col xs="5">
-                <SvelteTable
-                    {columns}
-                    {rows}
-                    on:clickRow={onSelect}
-                    selectSingle={false}
-                    selectOnClick={false}
-                    selected={selectedRow}
-                    classNameRowSelected="row-selected"
-                    rowKey={"accountID"}
-                ></SvelteTable>
-            </Col>
-            <Col xs="7">
-                {#if haSelected}
-                    <HaDetails />
-                {/if}
-            </Col>
-        </Row>
-    </Container> -->
 </main>
 
 <style>
