@@ -26,7 +26,7 @@
     // console.log("vipTable: props: ", vipListRecords);
 
     vipListRecords.forEach((record) => {
-        console.log("vipTable: ea record: ", record);
+        // console.log("vipTable: ea record: ", record);
         rows.push(record);
     });
 

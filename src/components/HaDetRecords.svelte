@@ -10,17 +10,17 @@
 
     let xTbody = $state(null);
     onMount(() => {
-        console.log("rend:haDetRecords onMount");
+        // console.log("rend:haDetRecords onMount");
         xTbody = document.getElementById("haDetRecordsTbody");
 
         xTbody.addEventListener("mouseover", function (e) {
-            console.log("rend: xTbody: mouseover");
+            // console.log("rend: xTbody: mouseover");
             showDetailNotes(e);
         });
     });
 
     onDestroy(() => {
-        console.log("rend: onDestroy");
+        // console.log("rend: onDestroy");
         xTbody.removeEventListener("mouseover", showDetailNotes);
     });
 

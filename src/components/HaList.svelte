@@ -5,7 +5,7 @@
     import { haCount } from "../sharedState.svelte.js";
     import { haDetails } from "../sharedState.svelte.js";
     import { haRecord } from "../sharedState.svelte.js";
-import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
+    import { haStatusOpen, haStatusClosed } from "../sharedState.svelte.js";
     haDetails.set(null);
 
     const columns = [
@@ -21,7 +21,7 @@ import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
             key: "accountName",
             title: "Name",
             value: (v) => v.accountName,
-            class: "text-start",
+            class: "text-start ",
             headerClass: "header text-start",
         },
     ];
@@ -60,7 +60,7 @@ import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
         let rowID = thisTR.dataset.key;
         let actName = thisTR.dataset.name;
         let accountStatus = thisTR.dataset.status;
-        console.log('haList: status: ', $haStatusOpen, " : ", $haStatusClosed)
+        console.log("haList: status: ", $haStatusOpen, " : ", $haStatusClosed);
         console.log("haList: onSelect: ", rowID);
         api.send("get/haDetails", { rowID, actName, accountStatus });
         // console.log("haTable: onSelect: ", selectedRow);
@@ -83,6 +83,7 @@ import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
 </script>
 
 <main>
+    <!-- <p> haStatusOpen: {$haStatusOpen} , haStatusClosed: {$haStatusClosed} </p> -->
     <div class="container haContainer">
         <Table bordered size="sm" hover>
             <thead class="header table-dark">
@@ -94,6 +95,8 @@ import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
             </thead>
             <tbody>
                 {#each rows as row}
+                {#if ($haStatusOpen && row.accountStatus == 'open')
+                 || ($haStatusClosed && row.accountStatus == 'closed')}
                     <tr
                         onclick={onSelect}
                         data-key={row.accountID}
@@ -101,10 +104,11 @@ import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
                         data-status={row.accountStatus}
                     >
                         {#each columns as c}
-                            <td class={c.class}>{row[c.key]}</td>
+                            <td class={`${row.accountStatus} ${c.class}`}>{row[c.key]} </td>
                         {/each}
                     </tr>
-                {/each}
+                {/if}
+                {/each} 
             </tbody>
         </Table>
     </div>
@@ -120,5 +124,12 @@ import {haStatusOpen, haStatusClosed} from "../sharedState.svelte.js";
         width: 100%;
         height: 450px;
         overflow: auto;
+    }
+
+    .open {
+        color: #18966c;
+    }
+    .closed {
+        color: #961861;
     }
 </style>

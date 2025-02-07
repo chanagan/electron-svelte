@@ -41,7 +41,7 @@
             <Col xs="6">
                 <HaHeader />
             </Col>
-            <Col xs="2">
+            <Col xs="1">
                 <HaStatus />
             </Col>
         </Row>
